@@ -83,13 +83,13 @@ footer{color:var(--muted);font-size:12px;padding-top:24px;border-top:1px solid v
 
 <div class="authbar">
   <div class="authpanel">
-    <div class="eyebrow">CLOUD SAVE / ACCOUNT</div>
+    <div class="eyebrow" id="authEyebrow">CLOUD SAVE / ACCOUNT</div>
     <div class="authgrid">
-      <div>
+      <div id="emailField">
         <label for="email">Email</label>
         <input id="email" type="email" autocomplete="email" placeholder="you@example.com">
       </div>
-      <div>
+      <div id="passwordField">
         <label for="password">Password</label>
         <input id="password" type="password" autocomplete="current-password" placeholder="Password">
       </div>
@@ -172,12 +172,14 @@ async function updateAuthUI(session){
   if(sbUser){
     document.body.classList.remove('locked');
     $('signIn').style.display='none'; $('signUp').style.display='none'; $('signOut').style.display='';
+    $('emailField').style.display='none'; $('passwordField').style.display='none'; $('authEyebrow').style.display='none';
     $('email').value=sbUser.email||'';
     setAuthStatus(`Signed in as <span class="useremail">${sbUser.email}</span> · Cloud sync is on.`,true);
     await loadCloud();
   }else{
     document.body.classList.add('locked');
     $('signIn').style.display=''; $('signUp').style.display=''; $('signOut').style.display='none';
+    $('emailField').style.display=''; $('passwordField').style.display=''; $('authEyebrow').style.display='';
     setAuthStatus('Create or sign in to sync your Sellbot HQ data across devices.');
   }
 }
