@@ -127,7 +127,7 @@ async function save(){
   const payload={mrr:Number($('mrr').value)||0,quota:Number($('quota').value)||0,outreach:Number($('outreach').value)||0,meetings:Number($('meetings').value)||0,proposals:Number($('proposals').value)||0,target:Number($('target').value)||300,notes:$('notes').value||'',history};
   localStorage.setItem('sellbotDash',JSON.stringify(payload));
   if(!sbUser) return;
-  const {error}=await supabase.from('sellbot_profiles').upsert({user_id:sbUser.id,data:payload,updated_at:new Date().toISOString()});
+  const {error}=await window.sellbotSupabase.from('sellbot_profiles').upsert({user_id:sbUser.id,data:payload,updated_at:new Date().toISOString()});
   if(error) console.error('Cloud save failed:',error);
 }
 function copy(text){if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).then(()=>alert('Copied to clipboard.')).catch(()=>prompt('Copy this text:',text));else prompt('Copy this text:',text)}
@@ -147,7 +147,7 @@ function applyData(s){
   renderHistory(); current(); merits();
 }
 async function loadCloud(){
-  const {data,error}=await supabase.from('sellbot_profiles').select('data').eq('user_id',sbUser.id).maybeSingle();
+  const {data,error}=await window.sellbotSupabase.from('sellbot_profiles').select('data').eq('user_id',sbUser.id).maybeSingle();
   if(error){console.error(error);setAuthStatus('Signed in, but cloud data could not be loaded.');return;}
   if(data?.data){applyData(data.data);localStorage.setItem('sellbotDash',JSON.stringify(data.data));}
   else{
@@ -162,10 +162,10 @@ async function initAuth(){
     document.body.classList.remove('locked');
     return;
   }
-  supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
-  const {data}=await supabase.auth.getSession();
+  window.sellbotSupabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+  const {data}=await window.sellbotSupabase.auth.getSession();
   await updateAuthUI(data.session);
-  supabase.auth.onAuthStateChange(async (_event,session)=>{await updateAuthUI(session)});
+  window.sellbotSupabase.auth.onAuthStateChange(async (_event,session)=>{await updateAuthUI(session)});
 }
 async function updateAuthUI(session){
   sbUser=session?.user||null;
@@ -183,15 +183,15 @@ async function updateAuthUI(session){
 }
 $('signIn').onclick=async()=>{
   if(!supabase)return setAuthStatus('Add your Supabase settings in config.js first.');
-  const {error}=await supabase.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});
+  const {error}=await window.sellbotSupabase.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});
   if(error)setAuthStatus(error.message);
 };
 $('signUp').onclick=async()=>{
   if(!supabase)return setAuthStatus('Add your Supabase settings in config.js first.');
-  const {error}=await supabase.auth.signUp({email:$('email').value.trim(),password:$('password').value});
+  const {error}=await window.sellbotSupabase.auth.signUp({email:$('email').value.trim(),password:$('password').value});
   if(error)setAuthStatus(error.message); else setAuthStatus('Account created. Check your email if confirmation is enabled.',true);
 };
-$('signOut').onclick=async()=>{if(supabase)await supabase.auth.signOut({scope:'local'})};
+$('signOut').onclick=async()=>{if(supabase)await window.sellbotSupabase.auth.signOut({scope:'local'})};
 
 try{const s=JSON.parse(localStorage.getItem('sellbotDash')||'null');if(s){applyData(s)}}catch(e){}
 
