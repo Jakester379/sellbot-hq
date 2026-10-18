@@ -245,7 +245,7 @@ function renderGoal(v, idx){
   $('goalPct').textContent = pctFmt(op);
   setBar('goalBar', 'goalBarWrap', op);
   $('paceMark').style.left = (pc.f * 100) + '%';
-  $('paceMark').hidden = pc.notStarted; $('paceMark').classList.toggle('edge', pc.f < .06);
+  $('paceMark').hidden = pc.notStarted;
   const ps = $('paceStat'); ps.className = '';
   if (pc.notStarted) ps.textContent = 'Starts ' + pc.start.toLocaleDateString('en-US',{month:'short',day:'numeric'});
   else if (v >= GOAL) { ps.textContent = 'Goal hit!'; ps.className = 'ahead'; }
@@ -304,9 +304,7 @@ function renderRewards(){
   $('draw').disabled = !toks.length;
   $('draw').textContent = toks.length ? `Draw ${'★'.repeat(toks[0].tier)} card` : 'No draws yet';
   $('clearReward').disabled = !c;
-  const nRed = state.rewards.filter(r => r.redeemed).length;
-  $('clearRedeemed').hidden = !nRed; $('clearRedeemed').textContent = `Clear redeemed (${nRed})`;
-  $('history').innerHTML = state.rewards.length ? state.rewards.map((r,i) => `<li class="${r.redeemed?'redeemed':''}"><input type="checkbox" data-redeem="${i}" ${r.redeemed?'checked':''} aria-label="Mark ${esc(r.name)} redeemed"><span class="c"><b>${esc(r.name)}</b> — ${esc(r.desc)} <span class="muted">${r.date ? '· ' + esc(niceDate(r.date,{month:'short',day:'numeric',year:'2-digit'})) : ''}</span></span><span class="d">${'★'.repeat(r.stars)} $${r.value}</span><button class="icon" data-rm="${i}" aria-label="Remove ${esc(r.name)} from history" title="Remove">✕</button></li>`).join('')
+  $('history').innerHTML = state.rewards.length ? state.rewards.map((r,i) => `<li class="${r.redeemed?'redeemed':''}"><input type="checkbox" data-redeem="${i}" ${r.redeemed?'checked':''} aria-label="Mark ${esc(r.name)} redeemed"><span class="c"><b>${esc(r.name)}</b> — ${esc(r.desc)} <span class="muted">${r.date ? '· ' + esc(niceDate(r.date,{month:'short',day:'numeric',year:'2-digit'})) : ''}</span></span><span class="d">${'★'.repeat(r.stars)} $${r.value}</span></li>`).join('')
     : '<li class="empty">No cards drawn yet.</li>';
 }
 function renderFooter(){
@@ -401,16 +399,6 @@ $('resetLife').addEventListener('click', async () => {
 });
 $('draw').addEventListener('click', drawCard);
 $('clearReward').addEventListener('click', () => { state.card = null; commit(); renderRewards(); });
-$('history').addEventListener('click', async e => {
-  const i = e.target.closest('[data-rm]')?.dataset.rm; if (i === undefined) return;
-  const r = state.rewards[i]; if (!r) return;
-  if (!r.redeemed && !await confirmBox('Remove card?', `${r.name} — ${r.desc} hasn't been redeemed yet. Remove it from your history anyway?`, 'Remove')) return;
-  state.rewards.splice(i, 1); commit(); renderRewards();
-});
-$('clearRedeemed').addEventListener('click', () => {
-  const before = state.rewards.length; state.rewards = state.rewards.filter(r => !r.redeemed);
-  commit(); renderRewards(); toast(`Cleared ${before - state.rewards.length} redeemed card${before - state.rewards.length === 1 ? '' : 's'}.`, 'ok');
-});
 $('history').addEventListener('change', e => {
   const i = e.target.dataset.redeem; if (i === undefined) return;
   state.rewards[i].redeemed = e.target.checked; commit(); renderRewards();

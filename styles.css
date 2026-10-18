@@ -68,7 +68,8 @@ header,.wrap,.toasts{position:relative;z-index:1}
 header{padding:22px max(20px,calc((100% - 1180px)/2)) 34px;background:linear-gradient(180deg,#060709d0,#12141c80);position:relative}
 header::after{content:"";position:absolute;left:0;right:0;bottom:-12px;height:12px;background:var(--stripes);background-size:22px 22px;animation:belt 3.4s linear infinite;box-shadow:0 0 10px #ffd23f40,0 4px 0 #000a}
 @keyframes belt{to{background-position:22px 0}}
-.chips{display:flex;gap:8px;position:relative;justify-content:flex-end;margin-bottom:12px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+.chips{display:flex;gap:8px;position:relative}
 .chip{display:inline-flex;align-items:center;gap:7px;padding:7px 12px;font:13px/1 var(--mono);letter-spacing:.05em;text-transform:none;border:1px solid var(--line);border-top-color:var(--line);background:#0b0d1acc;color:var(--muted);box-shadow:none;border-radius:20px}
 .chip:hover{color:var(--text);border-color:var(--gold);transform:none}
 .chip .dot{width:8px;height:8px;border-radius:50%;background:var(--steel);box-shadow:0 0 0 2px #0006}
@@ -80,11 +81,10 @@ h1 span{color:#ffb347;text-shadow:3px 3px 0 #a52a0f,0 0 12px #ff8a1f,0 0 34px #f
 @keyframes flicker{0%,89%,92%,100%{opacity:1}90%{opacity:.55}91%{opacity:.9}93%{opacity:.7}94%{opacity:1}}
 h2{font-size:30px;margin-bottom:10px;text-transform:uppercase;color:#fff7e6;text-shadow:0 0 14px #ff8a1f44}
 .eyebrow{display:inline-block;align-self:flex-start;font:12px/1.3 var(--mono);text-transform:uppercase;color:var(--ink);background:var(--gold);padding:3px 10px;letter-spacing:.12em;margin-bottom:10px;transform:rotate(-1deg);box-shadow:2px 2px 0 #000a,0 0 14px #ffd23f55}
-header .eyebrow{background:var(--orange);box-shadow:2px 2px 0 #000a,0 0 16px #ff8a1f77;margin:0 0 14px}
+header .eyebrow{background:var(--orange);box-shadow:2px 2px 0 #000a,0 0 16px #ff8a1f77;margin:0}
 
 /* ---------- hero goal ---------- */
 .hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:28px;align-items:end}
-.hero-title{padding-bottom:4px}
 .goal{background:linear-gradient(180deg,#0c0f1dee,#090b16ee);border:1px solid var(--line);border-left:4px solid var(--orange);padding:16px 18px 14px;box-shadow:inset 0 2px 8px #000a,0 0 24px #ff8a1f22}
 .goal-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
 .goal-top small{font:12px/1.3 var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
@@ -97,7 +97,6 @@ header .eyebrow{background:var(--orange);box-shadow:2px 2px 0 #000a,0 0 16px #ff
 .goal-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .goal-stats div small{display:block;font:11px/1.3 var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
 .goal-stats div b{font:400 20px/1.2 var(--display);letter-spacing:.03em;color:#e6e9f7}
-.pace-mark.edge::after{left:-1px;transform:none}
 .ahead{color:var(--green)!important}.behind{color:#ff8f7a!important}
 
 /* ---------- layout / panels ---------- */
@@ -213,7 +212,6 @@ button:disabled:hover{filter:grayscale(.6);transform:none}
 .list li .c{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .list li .m{font:400 17px var(--display);letter-spacing:.03em;color:var(--gold)}
 .list li .m.neg{color:#ff8f7a}
-.history li.empty{grid-template-columns:none}
 .list li.empty{display:block;color:var(--muted);text-align:center;padding:14px}
 .list button.icon{width:26px;height:26px;font-size:13px;box-shadow:none;border:1px solid transparent;background:transparent;color:var(--muted)}
 .list button.icon:hover{border-color:var(--red);color:#ff7a66}
@@ -247,12 +245,12 @@ details.ladder summary:hover{color:var(--gold)}
 .reward .value{font-size:40px;color:var(--gold);font-family:var(--display);letter-spacing:.04em;text-shadow:0 0 10px #ffd23f99}
 .tokens{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:10px;font:12px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
 .tok{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border:1px solid var(--gold);color:var(--gold);background:#2a2208;border-radius:2px}
-.history li{grid-template-columns:auto minmax(0,1fr) auto auto}
+.history li{grid-template-columns:auto minmax(0,1fr) auto}
 .history li.redeemed .c{text-decoration:line-through;color:var(--muted)}
 .history input[type=checkbox]{width:18px;height:18px;accent-color:var(--green);margin:0}
 
 /* ---------- wanted poster ---------- */
-.wanted{position:relative;padding:16px 16px 14px;transform:rotate(-1.2deg);color:#2a1706;text-align:center;background:linear-gradient(160deg,#fbe9b4,#e8c878);border:2px solid #7a4a14;box-shadow:0 8px 18px #000b,inset 0 0 30px #a8741f55;margin-top:30px}
+.wanted{position:relative;padding:16px 16px 14px;transform:rotate(-1.2deg);color:#2a1706;text-align:center;background:linear-gradient(160deg,#fbe9b4,#e8c878);border:2px solid #7a4a14;box-shadow:0 8px 18px #000b,inset 0 0 30px #a8741f55;margin-top:auto}
 .wanted::before,.wanted::after{content:"";position:absolute;top:-10px;width:56px;height:18px;background:#ffffffa0;box-shadow:0 1px 3px #0006;transform:rotate(-6deg)}
 .wanted::before{left:14px}.wanted::after{right:14px;transform:rotate(5deg)}
 .wanted small{display:block;font:11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#6b3f0f}
@@ -260,7 +258,7 @@ details.ladder summary:hover{color:var(--gold)}
 .wanted .w-name{font:400 26px/1.1 var(--display);letter-spacing:.04em;text-transform:uppercase;color:#b3250f}
 .wanted .w-bounty{display:inline-block;margin-top:8px;background:#1a0a04;color:var(--gold);font:14px var(--mono);letter-spacing:.06em;padding:4px 12px;text-transform:uppercase}
 .wanted .w-gears{display:flex;justify-content:center;gap:8px;margin:4px 0 2px}.wanted svg{width:32px;height:32px;display:block}
-.panel.fit{align-self:start}
+.spacer{height:22px}
 
 /* ---------- overlays: popover, modal, toast, promotion ---------- */
 .popover{position:absolute;right:0;top:calc(100% + 10px);width:min(340px,calc(100vw - 32px));z-index:30;padding:16px;border:2px solid var(--steel);background:linear-gradient(160deg,#2a2f4a,#171b2c);box-shadow:0 18px 40px #000c;border-radius:4px}
@@ -303,7 +301,7 @@ dialog legend{font:12px var(--mono);color:var(--gold);text-transform:uppercase;l
 
 footer{text-align:center;color:var(--muted);font:12px/1.5 var(--mono);letter-spacing:.08em;padding-top:24px;border-top:2px dashed var(--line);margin-top:30px}
 
-@media(max-width:900px){.hero{grid-template-columns:1fr;gap:16px}.hero-side{display:contents}.chips{order:-1;margin:0}.hero-title{padding:0}}
+@media(max-width:900px){.hero{grid-template-columns:1fr;gap:16px}}
 @media(max-width:780px){
   .span7,.span5,.span6{grid-column:span 12}
   .milestones{grid-template-columns:repeat(2,minmax(0,1fr))}
