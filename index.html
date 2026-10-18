@@ -50,9 +50,14 @@
 </svg><div class="mist"></div><div class="vig"></div></div>
 
 <header>
-  <div class="topbar">
-    <div class="eyebrow">Cog Nation · Sales Division</div>
-    <div class="chips">
+  <div class="hero">
+    <div class="hero-title">
+      <div class="eyebrow">Cog Nation · Sales Division</div>
+      <h1>SELLBOT <span>HQ</span></h1>
+      <p class="muted" style="margin:0;font-size:16px" id="heroLine">The climb to Mr. Hollywood, Level 50.</p>
+    </div>
+    <div class="hero-side">
+      <div class="chips">
       <button class="chip" id="acctChip" aria-haspopup="true" aria-expanded="false"><span class="dot"></span><span class="lbl" id="acctLbl">Local only</span><span aria-hidden="true">☁</span></button>
       <button class="chip" id="soundChip" aria-pressed="false" title="Sound effects"><span aria-hidden="true" id="soundIcon">🔇</span><span class="sr-only">Toggle sound</span></button>
       <button class="chip" id="settingsChip" title="Settings"><span aria-hidden="true">⚙</span><span class="lbl">Settings</span></button>
@@ -66,12 +71,6 @@
         <p id="authStatus">Sign in to sync your Sellbot HQ data across devices. Without an account, data stays in this browser.</p>
       </div>
     </div>
-  </div>
-  <div class="hero">
-    <div>
-      <h1>SELLBOT <span>HQ</span></h1>
-      <p class="muted" style="margin:0;font-size:16px" id="heroLine">The climb to Mr. Hollywood, Level 50.</p>
-    </div>
     <div class="goal" aria-labelledby="goalLbl">
       <div class="goal-top"><small id="goalLbl">5-year goal · cumulative net-new MRR</small><span class="hero-pct" id="goalPct">0%</span></div>
       <div class="hero-num" id="goalNum">$0<em>/ $300,000</em></div>
@@ -81,6 +80,7 @@
         <div><small>Needed / month</small><b id="needStat">—</b></div>
         <div><small>Target date</small><b id="dateStat">—</b></div>
       </div>
+    </div>
     </div>
   </div>
 </header>
@@ -113,7 +113,7 @@
   <details class="ladder"><summary>Show full ladder</summary><div class="ladgrid" id="fullLadder"></div></details>
 </section>
 
-<section class="panel span5" aria-labelledby="h2sec">
+<section class="panel span5 fit" aria-labelledby="h2sec">
   <div class="eyebrow">02 / Weekly merits</div>
   <h2 id="h2sec">Build your merit score</h2>
   <p class="muted" id="weekOf">Week of —</p>
@@ -138,7 +138,6 @@
   <textarea id="notes" rows="3" placeholder="What worked? What needs follow-up?"></textarea>
   <div class="btns pair"><button class="primary" id="closeWeek">Close out week</button><button id="copyReport">Copy report</button></div>
   <p class="note">Closing out the week adds it to your lifetime totals and starts a fresh week.</p>
-  <div class="spacer"></div>
   <div class="wanted"><small>★ Most wanted ★</small><div class="w-title">Headhunting</div>
     <div class="w-gears" aria-hidden="true"><svg viewBox="0 0 512 512"><use href="#gear" fill="#14100c"/></svg><svg viewBox="0 0 512 512"><use href="#gear" fill="#14100c"/></svg><svg viewBox="0 0 512 512"><use href="#gear" fill="#14100c"/></svg><svg viewBox="0 0 512 512"><use href="#gear" fill="#14100c"/></svg><svg viewBox="0 0 512 512"><use href="#gear" fill="#14100c"/></svg></div>
     <div class="w-name" id="wantedName">Mr. Hollywood · Lv 50</div><div class="w-bounty" id="wantedBounty">$300,000 MRR</div><small id="wantedBy" style="margin-top:8px">By —</small></div>
@@ -153,6 +152,7 @@
   <div class="btns pair"><button class="primary" id="draw">Draw SOS card</button><button id="clearReward">Put card away</button></div>
   <h3 class="subhead">Draw history</h3>
   <ul class="list history" id="history"></ul>
+  <div class="btns"><button class="ghost mini" id="clearRedeemed" hidden>Clear redeemed</button></div>
 </section>
 
 <section class="panel span6" aria-labelledby="h4sec">
