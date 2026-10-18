@@ -1,26 +1,33 @@
-# Sellbot HQ — Cloud Edition
+# Sellbot HQ
 
-This is your original Sellbot HQ dashboard upgraded for multi-device cloud saving.
+A Toontown-inspired sales progression dashboard. Static site for GitHub Pages, with optional cloud sync through Supabase.
 
-## Stack
-- Static website: GitHub Pages
-- Auth + database: Supabase
-- Frontend: the existing single-file HTML dashboard
+## Files
 
-## One-time setup
+| File | What it is |
+|---|---|
+| `index.html` | Page markup and the animated skyline |
+| `styles.css` | All styling |
+| `app.js` | All logic: ladder, deals, merits, rewards, sync |
+| `config.js` | **Yours, not included.** Your Supabase URL and publishable key. Keep your existing one. |
+| `config.example.js` | Template for `config.js` |
+| `favicon.png` | **Yours, not included.** Keep your existing one. |
+| `manifest.webmanifest` + `assets/icon-*.png` | Lets you "Add to Home Screen" on your phone as an app |
+| `assets/*.webp`, `assets/suit-texture.jpg` | Cloud, mist and suit images (previously embedded in the HTML) |
+| `supabase/schema.sql` | Table + row-level security policies |
 
-1. Create a Supabase project.
-2. Open Supabase SQL Editor and run `supabase_setup.sql`.
-3. In Supabase, get the Project URL and Publishable Key.
-4. Put them into `config.js`.
-5. Put `index.html` and `config.js` in a GitHub repository.
-6. Enable GitHub Pages for the repository (Settings → Pages → Deploy from branch → main → /(root)).
-7. Open the published site, create an account, and sign in.
+## Deploy
 
-## Important
-Use the Supabase *publishable* key in `config.js`, never the `service_role` key.
+1. Copy everything in this folder into your GitHub Pages repo, replacing the old `index.html`. Keep your existing `config.js` and `favicon.png`.
+2. In Supabase → SQL Editor, run `supabase/schema.sql`. It's safe on your existing table: it adds row-level security if it's missing and won't touch your data.
+3. Commit and push. Open the site and sign in — your old data upgrades automatically.
 
-The site uses Supabase Auth plus Row Level Security so each signed-in user can only access their own Sellbot profile row.
+## What happens to existing data
 
-## Existing behavior
-The original rank ladder, merit calculations, SOS reward deck, Hollywood jackpot, weekly report, and visual design are preserved. Local browser storage remains as a temporary fallback during setup, while signed-in users sync to the cloud.
+- Your old cumulative MRR becomes a single **"Opening balance"** deal dated today. Edit the date (delete and re-log it) if you want the promotion log to reflect when you actually got there.
+- Open **Settings** and set your **goal start date** so the pace marker is accurate.
+- The old single-file version can still read the new save (key fields are mirrored), so rolling back is safe.
+
+## Backups
+
+Settings → **Export JSON** downloads everything. Import restores it. When cloud and browser copies conflict, the older copy is saved in `localStorage` under `sellbotDash_cloudBackup` or `sellbotDash_localBackup`.
